@@ -1,11 +1,14 @@
 package com.webapplication.account;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.*;
+
+import javax.persistence.*;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@Getter
+@Setter
 public class Account {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -14,4 +17,11 @@ public class Account {
     private String name;
 
     private String password;
+
+    @Transient
+    private boolean userLogin;
+
+    public Account() {
+        this.userLogin = false;
+    }
 }

@@ -9,7 +9,7 @@ import org.springframework.validation.Validator;
 @RequiredArgsConstructor
 public class JoinFormValidator implements Validator {
 
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
    @Override
     public boolean supports(Class<?> aClass) {

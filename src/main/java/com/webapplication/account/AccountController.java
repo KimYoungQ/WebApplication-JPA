@@ -17,6 +17,8 @@ import javax.validation.Valid;
 public class AccountController {
 
     private final JoinFormValidator joinFormValidator;
+    private final AccountRepository accountRepository;
+    private final AccountService accountService;
 
     @InitBinder("joinForm")
     public void  initBinder(WebDataBinder webDataBinder) {
@@ -24,13 +26,9 @@ public class AccountController {
     }
 
     @GetMapping("/join")
-    public String join() {
+    public String join(Model model) {
+        model.addAttribute("joinForm", new JoinForm());
         return "account/join";
-    }
-
-    @GetMapping("/login")
-    public String login(Model model) {
-        return "login";
     }
 
     @PostMapping("/join")
@@ -39,6 +37,14 @@ public class AccountController {
             return "account/join";
         }
 
+        Account account = accountService.saveNewAccount(joinForm);
+        accountService.login(account);
         return "redirect:/";
+    }
+
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "login";
     }
 }

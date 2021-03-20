@@ -13,7 +13,7 @@
             <div class="col-sm-6">
                 <div class="card border-secondary mb-3 shadow">
                     <div class="card-body">
-                        <form th:action="@{/post/write}" method="post" enctype="multipart/form-data">
+                        <form th:action="@{/post/write}" method="post" th:object="${content}" enctype="multipart/form-data">
                             <div class="form-group pb-3">
                                 <label for="board_subject">제목</label>
                                 <input type="text" id="board_subject"  class="form-control"/>
