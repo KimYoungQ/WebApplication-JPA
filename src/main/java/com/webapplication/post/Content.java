@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -28,9 +29,9 @@ public class Content {
     @ManyToOne
     private Account writer;
 
-    private String content_date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
 
-    private String content_modifiedDate;
-
-    private String content_writer_name;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifiedDate;
 }

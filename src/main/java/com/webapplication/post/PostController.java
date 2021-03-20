@@ -1,20 +1,29 @@
 package com.webapplication.post;
 
-import com.webapplication.account.Account;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/post")
 public class PostController {
+
+    private final ContentRepository contentRepository;
+    private final PostService postService;
+
+    @GetMapping("/read")
+    public String read(Model model, @RequestParam Long content_id) {
+        Optional<Content> selectedContent = contentRepository.findById(content_id);
+        model.addAttribute("content", selectedContent.get());
+        return "post/read";
+    }
 
     @GetMapping("/write")
     public String write(Model model) {
@@ -23,11 +32,15 @@ public class PostController {
     }
 
     @PostMapping("/write")
-    public String write(@Valid @ModelAttribute Content content, Errors errors) {
+    public String write(@Valid @ModelAttribute Content content, Errors errors,
+                        Principal principal) {
         if(errors.hasErrors()) {
             return "post/write";
         }
 
+        String name = principal.getName();
+        postService.saveContent(content, name);
 
+        return "redirect:/";
     }
 }
