@@ -19,7 +19,7 @@ public class JoinFormValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         JoinForm joinForm = (JoinForm)o;
-        if (accountRepository.existsByName(joinForm.getName())) {
+        if (accountRepository.existsByName(joinForm.getName()) == true) {
             errors.rejectValue("name", "invalid.name", "이미 존재하는 ID입니다.");
         }
     }

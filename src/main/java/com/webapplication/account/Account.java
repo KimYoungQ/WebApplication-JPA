@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Account {
@@ -18,10 +19,8 @@ public class Account {
 
     private String password;
 
-    @Transient
-    private boolean userLogin;
-
-    public Account() {
-        this.userLogin = false;
+    public Account(String name, String password) {
+        this.name = name;
+        this.password = password;
     }
 }

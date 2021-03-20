@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -35,7 +36,8 @@ class AccountControllerTest {
     public void join_wrong_input() throws Exception {
         mockMvc.perform(post("/join")
                 .param("name", "test*")
-                .param("password", "123123"))
+                .param("password", "123123")
+                .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("account/join"));
     }
@@ -45,7 +47,8 @@ class AccountControllerTest {
     public void join_correct_input() throws Exception {
         mockMvc.perform(post("/join")
                 .param("name", "testName")
-                .param("password", "123123123"))
+                .param("password", "123123123")
+                .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"));
     }
