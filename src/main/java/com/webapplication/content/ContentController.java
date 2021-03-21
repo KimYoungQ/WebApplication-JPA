@@ -2,6 +2,7 @@ package com.webapplication.content;
 
 import com.webapplication.account.Account;
 import com.webapplication.account.AccountRepository;
+import com.webapplication.file.ContentFileRepository;
 import com.webapplication.file.ContentFileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ public class ContentController {
 
     private final ContentRepository contentRepository;
     private final AccountRepository accountRepository;
+    private final ContentFileRepository contentFileRepository;
     private final ContentService contentService;
     private final ContentFileService contentFileService;
 
@@ -36,6 +38,7 @@ public class ContentController {
         Long writerId = selectedContent.get().getWriter().getId();
         boolean matchResult = matchCurrentUserAndWriterUser(writerId, principal);
         model.addAttribute("matchResult", matchResult);
+        model.addAttribute("contentFile", contentFileRepository.findByContent_id(content_id));
         return "post/read";
     }
 
@@ -55,7 +58,7 @@ public class ContentController {
     @PostMapping("/write")
     public String write(@Valid @ModelAttribute Content content, Errors errors,
                         Principal principal,
-                        @RequestParam("files") List<MultipartFile> files) throws IOException {
+                        @RequestParam(required = false) List<MultipartFile> files) throws IOException {
         if (errors.hasErrors()) {
             return "post/write";
         }
@@ -64,7 +67,7 @@ public class ContentController {
 
         Content selectedContent = contentService.saveContent(content, name);
         Long content_id = selectedContent.getId();
-        if (!files.get(0).isEmpty()) {
+        if (!files.get(0).getOriginalFilename().isEmpty()) {
             contentFileService.saveFile(content_id, files);
         }
 

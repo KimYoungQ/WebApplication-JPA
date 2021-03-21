@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +18,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -67,7 +67,10 @@ class ContentControllerTest {
     @WithMockCustomUser("testName")
     @Test
     public void create() throws Exception {
-        mockMvc.perform(post("/post/write")
+        MockMultipartFile jsonFile = new MockMultipartFile("test.json", "test", "application/json", "{\"key1\": \"value1\"}".getBytes());
+
+        mockMvc.perform(multipart("/post/write")
+                .file("files", jsonFile.getBytes())
                 .param("subject", "제목 테스트")
                 .param("text", "내용테스트")
                 .with(csrf()))

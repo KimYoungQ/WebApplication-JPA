@@ -34,6 +34,12 @@
                             <label for="text">내용</label>
                             <textarea id="text" th:text="${content.text}" class="form-control" rows="10" style="resize:none" disabled="disabled"></textarea>
                         </div>
+                        <div class="form-group pb-3">
+                            <label>파일 첨부</label>
+                            <th:block th:each="contentFileList : ${contentFile}">
+                                <p th:block th:text="${contentFileList.getFileName()}"/>
+                            </th:block>
+                        </div>
                         <div class="form-group py-2">
                             <div class="text-right gap-2 d-md-flex justify-content-md-end">
                                 <a th:href="@{/}" class="btn btn-outline-secondary me-md-1">목록보기</a>
