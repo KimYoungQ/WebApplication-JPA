@@ -30,8 +30,9 @@ server.port=8090
 2. clone 후 빌드 실행 또는 jar파일 실행
 
 ```
-./mvnw package
-java -jar (jar파일명).jar
+$ ./mvnw package
+$ cd target
+$ java -jar (jar파일명).jar
 ```
 
 
