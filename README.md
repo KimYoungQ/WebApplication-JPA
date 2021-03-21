@@ -27,7 +27,7 @@ server.port=8090
 ```
 
 <br/>
-2.clone 받아 빌드 실행 또는 jar파일 실행
+2. clone 후 빌드 실행 또는 jar파일 실행
 
 ```
 ./mvnw package
