@@ -17,12 +17,12 @@
                             <div class="form-group pb-3">
                                 <label for="subject">제목</label>
                                 <input type="text" id="subject" th:field="*{subject}" class="form-control"/>
-                                <small class="form-text text-danger" th:if="${#fields.hasErrors('subject')}" th:errors="*{content_subject}"></small>
+                                <small class="form-text text-danger" th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"></small>
                             </div>
                             <div class="form-group pb-3">
                                 <label for="text">내용</label>
                                 <textarea id="text" th:field="*{text}" class="form-control" rows="10" style="resize:none"></textarea>
-                                <small class="form-text text-danger" th:if="${#fields.hasErrors('text')}" th:errors="*{content_text}"></small>
+                                <small class="form-text text-danger" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></small>
                             </div>
                             <div class="form-group pb-3">
                                 <label for="file">파일 첨부</label>

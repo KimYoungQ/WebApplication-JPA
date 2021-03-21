@@ -58,7 +58,8 @@ public class ContentController {
     @PostMapping("/write")
     public String write(@Valid @ModelAttribute Content content, Errors errors,
                         Principal principal,
-                        @RequestParam(required = false) List<MultipartFile> files) throws IOException {
+                        @RequestParam(required = false) List<MultipartFile> files,
+                        RedirectAttributes attributes) throws IOException {
         if (errors.hasErrors()) {
             return "post/write";
         }
@@ -71,7 +72,8 @@ public class ContentController {
             contentFileService.saveFile(content_id, files);
         }
 
-        return "redirect:/";
+        attributes.addAttribute("content_id", selectedContent.getId());
+        return "redirect:/post/read";
     }
 
     @GetMapping("/delete")
@@ -89,7 +91,7 @@ public class ContentController {
         Optional<Content> selectedContent = contentRepository.findById(content_id);
         model.addAttribute("content", selectedContent.get());
         model.addAttribute("contentFile", contentFileRepository.findByContent_id(content_id));
-        return "/post/modify";
+        return "post/modify";
     }
 
     @PostMapping("/modify")
@@ -98,7 +100,7 @@ public class ContentController {
                          @RequestParam Long content_id) {
         if (errors.hasErrors()) {
             model.addAttribute("content_id", content_id);
-            return "/post/modify";
+            return "post/modify";
         }
 
         attributes.addAttribute("content_id", content_id);

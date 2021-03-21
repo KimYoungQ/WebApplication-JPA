@@ -34,10 +34,10 @@ public class ContentFileService {
         Optional<Content> selectedContent = contentRepository.findById(content_id);
 
         String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
-        String basePath = rootPath + "\\" + "multi";
+        String basePath = rootPath + "\\" + "uploadFiles";
 
-        for(MultipartFile file : contentfile.getMultipartFile()) {
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        for(MultipartFile multipartFile : contentfile.getMultipartFile()) {
+            String fileName = System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
             String filePath = basePath + "\\" + fileName;
 
             ContentFile newContentFile = contentfile.builder()
@@ -49,17 +49,22 @@ public class ContentFileService {
 
             contentFileRepository.save(newContentFile);
 
-            File Folder = new File(basePath);
-            if(!Folder.exists()){
-                try{
-                    Folder.mkdir();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            file.transferTo(new File(filePath));
+            saveFile(basePath, multipartFile, filePath);
         }
+    }
+
+    private void saveFile(String basePath, MultipartFile file, String filePath) throws IOException {
+        File Folder = new File(basePath);
+
+        if(!Folder.exists()){
+            try{
+                Folder.mkdir();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        file.transferTo(new File(filePath));
     }
 
     public void generateTestData(Principal principal) {

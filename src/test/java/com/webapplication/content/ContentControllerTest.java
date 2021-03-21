@@ -75,7 +75,8 @@ class ContentControllerTest {
                 .param("text", "내용테스트")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/"))
+                .andExpect(view().name("redirect:/post/read"))
+                .andExpect(model().attributeExists("content_id"))
                 .andExpect(authenticated());
 
         List<Content> all = contentRepository.findAll();
