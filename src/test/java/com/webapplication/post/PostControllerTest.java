@@ -47,7 +47,7 @@ class PostControllerTest {
                 .andExpect(model().attributeExists("contentList"));
     }
 
-    @DisplayName("게시글 조회")
+    @DisplayName("공지글 조회")
     @WithMockCustomUser("testName")
     @Test
     public void read() throws Exception {
@@ -63,7 +63,7 @@ class PostControllerTest {
                 .andExpect(authenticated());
     }
 
-    @DisplayName("게시글 작성")
+    @DisplayName("공지글 작성")
     @WithMockCustomUser("testName")
     @Test
     public void create() throws Exception {
@@ -74,6 +74,9 @@ class PostControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/"))
                 .andExpect(authenticated());
+
+        List<Content> all = contentRepository.findAll();
+        assertThat(all.size()).isEqualTo(1);
     }
 
     private String LongtoStringContentId(Content content) {
