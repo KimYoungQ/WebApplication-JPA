@@ -3,6 +3,7 @@ package com.webapplication.main;
 import com.webapplication.content.Content;
 import com.webapplication.content.ContentRepository;
 import com.webapplication.content.ContentService;
+import com.webapplication.content.Paging;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +25,8 @@ public class MainController {
 
         Page<Content> contentPage = contentService.getContentList(pageable);
         model.addAttribute("contentPage", contentPage);
+//        Paging paging = contentService.setPaging(contentPage);
+//        model.addAttribute("paging",paging);
 
         return "index";
     }

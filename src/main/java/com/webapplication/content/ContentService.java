@@ -42,4 +42,8 @@ public class ContentService {
 
         return  contentRepository.findAll(pageable);
     }
+
+    public Paging setPaging(Page<Content> contentPage) {
+        return new Paging(contentPage.getTotalPages(), contentPage.getNumber(), contentPage.getSize(), 10);
+    }
 }

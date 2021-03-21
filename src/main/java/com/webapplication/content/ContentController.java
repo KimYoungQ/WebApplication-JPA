@@ -79,7 +79,7 @@ public class ContentController {
         Optional<Content> selectedContent = contentRepository.findById(content_id);
         contentRepository.delete(selectedContent.get());
 
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/modify")
@@ -107,4 +107,10 @@ public class ContentController {
         return "redirect:/post/read";
     }
 
+    @GetMapping("/data")
+    public String testData(Principal principal) {
+        contentFileService.generateTestData(principal);
+
+        return "redirect:/";
+    }
 }

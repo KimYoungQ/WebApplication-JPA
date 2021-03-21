@@ -43,7 +43,7 @@ class ContentControllerTest {
                 .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
-                .andExpect(model().attributeExists("contentList"));
+                .andExpect(model().attributeExists("contentPage"));
     }
 
     @DisplayName("공지글 조회")
@@ -120,8 +120,8 @@ class ContentControllerTest {
         mockMvc.perform(get("/post/delete")
                 .param("content_id", content_id)
                 .with(csrf()))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"));
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/"));
 
         List<Content> all = contentRepository.findAll();
         assertThat(all.size()).isEqualTo(0);
