@@ -17,6 +17,27 @@ Spring boot와 Spring data JPA 기반 웹 애플리케이션입니다.
 
 <br/>
 
+로컬에서 실행
+---
+application.properties에서
+
+1. 포트 확인
+```
+server.port=8090
+```
+
+<br/>
+2.clone 받아 빌드 실행 또는 jar파일 실행
+```
+./mvnw package
+java -jar (jar파일명).jar
+```
+
+
+
+
+<br/>
+
 ![메인](https://user-images.githubusercontent.com/45932388/111903897-9af68f80-8a87-11eb-8b97-8c80c4c7e581.PNG)
 
 <br/>
