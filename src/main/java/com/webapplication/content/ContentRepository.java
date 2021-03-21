@@ -1,4 +1,4 @@
-package com.webapplication.post;
+package com.webapplication.content;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

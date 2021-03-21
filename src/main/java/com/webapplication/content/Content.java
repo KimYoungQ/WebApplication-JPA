@@ -1,13 +1,11 @@
-package com.webapplication.post;
+package com.webapplication.content;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.webapplication.account.Account;
+import com.webapplication.file.ContentFile;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -21,20 +19,22 @@ public class Content {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Column(nullable = false)
     @NotBlank(message = "제목을 입력해주세요.")
     private String subject;
 
+    @Column(nullable = false)
     @NotBlank(message = "내용을 입력해주세요.")
     private String text;
-
-    private String file;
 
     @ManyToOne
     private Account writer;
 
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedDate;
 }

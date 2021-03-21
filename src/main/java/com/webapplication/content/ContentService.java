@@ -1,4 +1,4 @@
-package com.webapplication.post;
+package com.webapplication.content;
 
 import com.webapplication.account.Account;
 import com.webapplication.account.AccountRepository;
@@ -15,12 +15,13 @@ public class ContentService {
     private final AccountRepository accountRepository;
     private final ContentRepository contentRepository;
 
-    public void saveContent(Content content, String name) {
+    public Content saveContent(Content content, String name) {
         Account currentAccount = accountRepository.findByName(name);
         content.setWriter(currentAccount);
         content.setDate(new Date());
         content.setModifiedDate(new Date());
-        contentRepository.save(content);
+        Content selectedContent = contentRepository.save(content);
+        return selectedContent;
     }
 
     public void update(Content content, Long content_id) {

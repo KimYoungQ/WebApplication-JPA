@@ -1,27 +1,31 @@
-package com.webapplication.post;
+package com.webapplication.content;
 
 import com.webapplication.account.Account;
 import com.webapplication.account.AccountRepository;
+import com.webapplication.file.ContentFileService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/post")
-public class PostController {
+public class ContentController {
 
     private final ContentRepository contentRepository;
     private final AccountRepository accountRepository;
     private final ContentService contentService;
+    private final ContentFileService contentFileService;
 
     @GetMapping("/read")
     public String read(Model model, @RequestParam Long content_id,
@@ -50,13 +54,19 @@ public class PostController {
 
     @PostMapping("/write")
     public String write(@Valid @ModelAttribute Content content, Errors errors,
-                        Principal principal) {
+                        Principal principal,
+                        @RequestParam("files") List<MultipartFile> files) throws IOException {
         if (errors.hasErrors()) {
             return "post/write";
         }
 
         String name = principal.getName();
-        contentService.saveContent(content, name);
+
+        Content selectedContent = contentService.saveContent(content, name);
+        Long content_id = selectedContent.getId();
+        if (!files.get(0).isEmpty()) {
+            contentFileService.saveFile(content_id, files);
+        }
 
         return "redirect:/";
     }

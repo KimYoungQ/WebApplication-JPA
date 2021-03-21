@@ -1,7 +1,7 @@
 package com.webapplication.main;
 
-import com.webapplication.post.Content;
-import com.webapplication.post.ContentRepository;
+import com.webapplication.content.Content;
+import com.webapplication.content.ContentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

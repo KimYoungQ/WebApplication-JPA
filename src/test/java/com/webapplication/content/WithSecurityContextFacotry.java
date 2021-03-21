@@ -1,9 +1,8 @@
-package com.webapplication.post;
+package com.webapplication.content;
 
 import com.webapplication.account.Account;
 import com.webapplication.account.AccountService;
 import com.webapplication.account.JoinForm;
-import org.hibernate.mapping.Join;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
