@@ -25,6 +25,15 @@
                                 <textarea id="text" th:field="*{text}" class="form-control" rows="10" style="resize:none">본문입니다</textarea>
                                 <small class="form-text text-danger" th:if="${#fields.hasErrors('text')}" th:errors="*{text}">Text Error</small>
                             </div>
+                  <!--      <div class="form-group pb-3">
+                                <label for="board_file">첨부 파일</label>
+                                <th:block th:if="${contentFile != null}">
+                                    <th:block th:each="contentFileList : ${contentFile}">
+                                    <p th:block th:text="${contentFileList.getFileName()}"/>
+                                    </th:block>
+                                 </th:block>
+                                <input type="file" id="board_file" name="files" class="form-control"/>
+                            </div>-->
                             <div class="form-group pb-3">
                                 <div class="text-right gap-2 d-md-flex justify-content-md-end">
                                     <button type="submit" class="btn btn-outline-success me-md-2">수정완료</button>

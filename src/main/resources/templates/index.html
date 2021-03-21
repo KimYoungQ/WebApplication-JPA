@@ -26,7 +26,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <th:block th:each="content : ${contentList}">
+                    <th:block th:each="content : ${contentPage}">
                         <tr>
                             <td class="text-center">
                                 <a class="link-secondary text-center" th:href='@{/post/read(content_id=${content.getId()})}'>
@@ -45,13 +45,30 @@
                 </table>
 
                 <div class="text-right gap-2 d-md-flex justify-content-md-end">
-<!--                    <a th:href="@{/board/write(board_info_idx=${board_info_idx}, page=${page})}" class="btn btn-secondary">글쓰기</a>-->
                     <a th:href="@{/post/write}" class="btn btn-dark">글쓰기</a>
                 </div>
 
             </div>
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${!contentPage.hasPrevious()}? disabled">
+                        <a th:href="@{/(page=${contentPage.getNumber()})}"
+                                class="page-link" href="#">Previous</a>
+                    </li>
+                    <li class="page-item" th:classappend="${(i-1) == contentPage.getNumber()}? active" th:each="i: ${#numbers.sequence(1, contentPage.getTotalPages())}">
+                        <a th:href="@{/(page=${i})}" class="page-link" href="#" th:text="${i}">1</a>
+                    </li>
+                    <li class="page-item" th:classappend="${!contentPage.hasNext()}? disabled">
+                        <a th:href="@{/(page=${contentPage.getNumber()+2})}"
+                                class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
         </div>
     </div>
+
 
 </body>
 </html>

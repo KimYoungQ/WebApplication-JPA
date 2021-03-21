@@ -3,6 +3,10 @@ package com.webapplication.content;
 import com.webapplication.account.Account;
 import com.webapplication.account.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -30,5 +34,12 @@ public class ContentService {
         selectContent.get().setSubject(content.getSubject());
         selectContent.get().setText(content.getText());
         contentRepository.save(selectContent.get());
+    }
+
+    public Page<Content> getContentList(Pageable pageable) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "id");
+
+        return  contentRepository.findAll(pageable);
     }
 }

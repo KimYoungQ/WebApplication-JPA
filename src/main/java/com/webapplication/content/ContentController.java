@@ -88,6 +88,7 @@ public class ContentController {
 
         Optional<Content> selectedContent = contentRepository.findById(content_id);
         model.addAttribute("content", selectedContent.get());
+        model.addAttribute("contentFile", contentFileRepository.findByContent_id(content_id));
         return "/post/modify";
     }
 
