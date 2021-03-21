@@ -35,7 +35,7 @@
                             <textarea id="text" th:text="${content.text}" class="form-control" rows="10" style="resize:none" disabled="disabled"></textarea>
                         </div>
                         <div class="form-group pb-3">
-                            <label>파일 첨부</label>
+                            <label>파일 첨부 (`프로젝트 포함한 경로/multi` 에 따로 저장)</label>
                             <th:block th:each="contentFileList : ${contentFile}">
                                 <p th:block th:text="${contentFileList.getFileName()}"/>
                             </th:block>
