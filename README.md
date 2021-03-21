@@ -10,10 +10,10 @@ Spring boot와 Spring data JPA 기반 웹 애플리케이션입니다.
 - Spring boot, Spring data JPA
 - 단위/통합 테스트 케이스 
 - 로그인 기능(Spring Security)
-- 공지사항
-    · CRUD
-    · 다중 파일 첨부
-    · 페이징
+- 공지사항  
+    · CRUD  
+    · 다중 파일 첨부  
+    · 페이징   
 
 <br/>
 
